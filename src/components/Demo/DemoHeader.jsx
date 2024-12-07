@@ -1,11 +1,11 @@
-import React from "react";
+import {React, useState} from "react";
 import { Link } from "react-router-dom";
 import { nav } from "../../data.js";
 import Auth from "./Auth/Auth.jsx";
 import logo from "../../assets/logo.png"
 
 const DemoHeader = () => {
-
+   const[modal, setModal]=useState(false);
 
   return (
     <header
@@ -28,13 +28,15 @@ const DemoHeader = () => {
           </div>
           <div className="relative">
             <button
+            onClick={()=>setModal(true)}
               className="hidden text-sm sm:flex items-center gap-5">
               Sign In
-              <Auth />
+              <Auth modal={modal} setModal={setModal} />
             </button>
             
           </div>
           <button
+          onClick={()=>setModal(true)}
             className="text-white rounded-full px-3 p-2 text-sm font-medium bg-purple-950">
             Get Started
           </button>
