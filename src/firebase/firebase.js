@@ -1,18 +1,20 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
+
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
-  authDomain: "blogio-87964.firebaseapp.com",
-  projectId: "blogio-87964",
-  storageBucket: "blogio-87964.firebasestorage.app",
-  messagingSenderId: "162747847309",
-  appId: "1:162747847309:web:9652431924da2a482848c4",
-  measurementId: "G-W15Z6SQ6CB"
+  authDomain: "blogio-10u.firebaseapp.com",
+  projectId: "blogio-10u",
+  storageBucket: "blogio-10u.firebasestorage.app",
+  messagingSenderId: "492685140070",
+  appId: "1:492685140070:web:ae29d8e34651552fa4cda7",
+  measurementId: "G-CL8R11WZWY"
 };
 
 

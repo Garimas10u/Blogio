@@ -3,9 +3,10 @@ import Home from "./components/Home/Home";
 import Demo from "./components/Demo/Demo";
 import DemoHeader from "./components/Demo/DemoHeader";
 import HomeHeader from "./components/Home/HomeHeader";
+import {Blog}  from "./Context/Context";
 
 function App() {
-  const currUser=false;
+  const {currUser} =Blog();
   return (
     <>
     {currUser ? <HomeHeader/> : <DemoHeader/>}
