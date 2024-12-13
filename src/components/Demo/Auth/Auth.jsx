@@ -6,13 +6,43 @@ import { MdFacebook } from "react-icons/md";
 import { AiOutlineMail } from "react-icons/ai";
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import { signInWithPopup } from 'firebase/auth';
+import {doc, getDoc, setDoc} from '../../../firebase/firebase'
+import { auth, db, provider } from '../../../firebase/firebase';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Auth = () => {
     const [createUser, setCreateUser] = useState(false);
     const [signReq, setSignReq]=useState("");
     const [modal , setModal]=useState(true);
+    const navigate=useNavigate();
 
     const hidden= modal ? "visible opacity-100": "inivisible opacity-0"; 
+
+    const googleAuth=async()=>{
+        try{
+            const createUser=await signInWithPopup(auth, provider)
+            const newUser=createUser.user;
+            const ref=doc(db, "users", newUser.uid);
+            const userDoc=await getDoc(ref);
+            if(!userDoc.exists()){
+                await setDoc(ref, {
+                    userId: newUser.uid,
+                    username:newUser.displayName,
+                    email:newUser.email,
+                    userImg:newUser.photoURL,
+                    bio:"",
+                });
+                
+            }
+            toast.success("User have been Signed in");
+            navigate("/");
+            setModal(false);
+        }catch(error){
+            toast.error("User have been Signed in");
+        }
+    }
 
   return (
     <Modal modal={modal} setModal={setModal} hidden={hidden}>
@@ -29,7 +59,9 @@ const Auth = () => {
                         {createUser? "Get Started with Blogio": "Welcome Back to Blogio"}
                     </h2>
                     <div className='flex flex-col gap-4 w-fit mx-auto'>
-                        <Button icon={<FcGoogle className='text-xl'/>}
+                        <Button
+                        click={googleAuth}
+                         icon={<FcGoogle className='text-xl'/>}
                         text={`${createUser? "Sign Up ":"Sign In "}with Google`}
                         />
                         <Button icon={<MdFacebook className='text-xl text-blue-600'/>}
